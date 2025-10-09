@@ -7,12 +7,12 @@ public class Book {
     private String title;
     private String author;
     private String yearPublished;
-    private String ISBN;
-    public Book(String title, String author, String yearPublished, String ISBN) {
+    private String uniqueISBN;
+    public Book(String title, String author, String yearPublished, String uniqueISBN) {
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
-        this.ISBN = ISBN;
+        this.uniqueISBN = uniqueISBN;
     }
 
 }
