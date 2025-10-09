@@ -1,20 +1,28 @@
 package com.library;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Library {
-    // Scanner sc = new Scanner(System.in);
 
-    public Book addBook(Scanner s){
+    ArrayList<Book> enitreLibrary = new ArrayList<Book>();
+
+    public void addBook(Scanner s) {
         System.out.print("Enter book title: ");
         String bookName = s.nextLine();
         System.out.print("Enter book author: ");
         String bookAuthor = s.nextLine();
-        System.out.print("Enter the book's publication year: ");
-        int bookYear = s.nextInt();
         System.out.print("Enter book ISBN: ");
         String bookISBN = s.nextLine();
+        System.out.print("Enter the book's publication year: ");
+        String bookYear = s.nextLine();
         Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN);
-        return addedBook;
+        enitreLibrary.add(addedBook);
+    }
+    public void printOutEnitreLibrary() {
+        for (Book book : enitreLibrary) {
+            System.out.println(book);
+        }
     }
 }
