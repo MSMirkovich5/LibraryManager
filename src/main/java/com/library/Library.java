@@ -19,9 +19,11 @@ public class Library {
         String bookYear = s.nextLine();
         Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN);
         enitreLibrary.add(addedBook);
+        System.out.println("Book added successfully!");
     }
     public void printOutEnitreLibrary() {
         for (Book book : enitreLibrary) {
+            System.out.println("The library contains the following books: ");
             System.out.println(book);
         }
     }

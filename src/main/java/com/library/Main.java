@@ -12,8 +12,10 @@ public class Main {
             switch(optionSelect.toLowerCase()) {
                 case "add":
                     libra.addBook(input);
+                    break;
                 case "printout":
                     libra.printOutEnitreLibrary();
+                    break;
             }
             System.out.print("Would you like to continue? (yes/no) ");
             if (input.nextLine().equalsIgnoreCase("no")) break;

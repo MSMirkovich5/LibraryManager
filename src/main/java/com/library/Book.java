@@ -14,5 +14,8 @@ public class Book {
         this.yearPublished = yearPublished;
         this.uniqueISBN = uniqueISBN;
     }
-
+    @Override
+    public String toString() {
+        return String.format("Title: " +title+ " | Author: " +author+ " | Year published: " +yearPublished+ " | ISBN: "+uniqueISBN);
+    }
 }
