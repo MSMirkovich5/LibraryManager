@@ -17,9 +17,59 @@ public class Library {
         String bookISBN = s.nextLine();
         System.out.print("Enter the book's publication year: ");
         String bookYear = s.nextLine();
-        Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN);
+        String bookStatus="Available";
+        Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN, bookStatus);
         enitreLibrary.add(addedBook);
         System.out.println("Book added successfully!");
+    }
+    public Book searchBook(Scanner s) {
+        System.out.print("Would you like to search by title or by author? : ");
+        String bookSearch = s.nextLine();
+        if (bookSearch.equalsIgnoreCase("title")) {
+            System.out.print("Enter book title: ");
+            String bookTitle = s.nextLine();
+            for (Book book : enitreLibrary) {
+                if (book.getTitle().equalsIgnoreCase(bookTitle)) {
+                    System.out.println("We have that book in our library!");
+                    return book;
+                }
+                else {
+                    System.out.println("Unfortunately, we do not have that book in our library.");
+                }
+            }
+        }
+        if (bookSearch.equalsIgnoreCase("author")) {
+            System.out.print("Enter book author: ");
+            String bookAuthor = s.nextLine();
+            for (Book book : enitreLibrary) {
+                if (book.getAuthor().equalsIgnoreCase(bookAuthor)) {
+                    System.out.println("We have that book in our library!");
+                    return book;
+                }
+                else{
+                    System.out.println("Unfortunately, we do not have that book in our library.");
+                }
+            }
+        }
+        return null;
+    }
+    public void borrowBook(Scanner s) {
+        Book findBook = searchBook(s);
+        if (findBook == null) {
+            System.out.println("Unfortunately, we don't have that book in our library!");
+        }
+        if (findBook.getStatus().equalsIgnoreCase("Borrowed")) {
+            System.out.println("This book has already been borrowed!");
+        }
+        System.out.print("Would you like to borrow the book? (yes/no) ");
+        String bookBorrow = s.nextLine();
+        if (bookBorrow.equalsIgnoreCase("yes")) {
+            findBook.setStatus("Borrowed");
+            System.out.println("You borrowed "+findBook.getTitle()+" from the library!");
+        }
+        else {
+            System.out.println("Book remains with us.");
+        }
     }
     public void printOutEnitreLibrary() {
         for (Book book : enitreLibrary) {

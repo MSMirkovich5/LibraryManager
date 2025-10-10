@@ -13,6 +13,12 @@ public class Main {
                 case "add":
                     libra.addBook(input);
                     break;
+                case "search":
+                    libra.searchBook(input);
+                    break;
+                case "borrow":
+                    libra.borrowBook(input);
+                    break;
                 case "printout":
                     libra.printOutEnitreLibrary();
                     break;
