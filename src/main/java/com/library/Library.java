@@ -71,9 +71,29 @@ public class Library {
             System.out.println("Book remains with us.");
         }
     }
+    public void returnBook(Scanner s) {
+        Book findBook = searchBook(s);
+        if (findBook == null) {
+            System.out.println("Unfortunately, we don't have that book in our library!");
+        }
+        if (findBook.getStatus().equalsIgnoreCase("Borrowed")) {
+            System.out.print(findBook.getTitle()+" has been borrowed! Would you like to return it? (yes/no) ");
+            String bookReturn = s.nextLine();
+            if (bookReturn.equalsIgnoreCase("yes")) {
+                findBook.setStatus("Available");
+                System.out.println("You returned "+findBook.getTitle()+" to the library!");
+            }
+            else {
+                System.out.println("Book remains with you.");
+            }
+        }
+        else {
+            System.out.println("Book is in our library!");
+        }
+    }
     public void printOutEnitreLibrary() {
+        System.out.println("The library contains the following books: ");
         for (Book book : enitreLibrary) {
-            System.out.println("The library contains the following books: ");
             System.out.println(book);
         }
     }

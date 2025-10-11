@@ -19,6 +19,9 @@ public class Main {
                 case "borrow":
                     libra.borrowBook(input);
                     break;
+                case "return":
+                    libra.returnBook(input);
+                    break;
                 case "printout":
                     libra.printOutEnitreLibrary();
                     break;
