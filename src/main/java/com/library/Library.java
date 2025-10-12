@@ -23,9 +23,7 @@ public class Library {
         System.out.println("Book added successfully!");
     }
     public Book searchBook(Scanner s) {
-        System.out.print("Would you like to search by title or by author? : ");
-        String bookSearch = s.nextLine();
-        if (bookSearch.equalsIgnoreCase("title")) {
+        if (searchByAuthorOrTitle(s).equalsIgnoreCase("title")) {
             System.out.print("Enter book title: ");
             String bookTitle = s.nextLine();
             for (Book book : enitreLibrary) {
@@ -35,10 +33,11 @@ public class Library {
                 }
                 else {
                     System.out.println("Unfortunately, we do not have that book in our library.");
+                    return null;
                 }
             }
         }
-        if (bookSearch.equalsIgnoreCase("author")) {
+        if (searchByAuthorOrTitle(s).equalsIgnoreCase("author")) {
             System.out.print("Enter book author: ");
             String bookAuthor = s.nextLine();
             for (Book book : enitreLibrary) {
@@ -48,6 +47,7 @@ public class Library {
                 }
                 else{
                     System.out.println("Unfortunately, we do not have any of that author's books in our library.");
+                    return null;
                 }
             }
         }
@@ -75,8 +75,9 @@ public class Library {
         Book findBook = searchBook(s);
         if (findBook == null) {
             System.out.println("Unfortunately, we don't have that book in our library!");
+            // zbog nekog razloga proba nastavit s metodom umjesto da se vrati u Main i samo pita za continue.
         }
-        if (findBook.getStatus().equalsIgnoreCase("Borrowed")) {
+        else if (findBook.getStatus().equalsIgnoreCase("Borrowed")) {
             System.out.print(findBook.getTitle()+" has been borrowed! Would you like to return it? (yes/no) ");
             String bookReturn = s.nextLine();
             if (bookReturn.equalsIgnoreCase("yes")) {
@@ -99,5 +100,18 @@ public class Library {
         for (Book book : enitreLibrary) {
             System.out.println(book);
         }
+    }
+    private static String searchByAuthorOrTitle(Scanner s) {
+        String options = "title author";
+        System.out.print("Would you like to search by title or by author? ");
+        String bookSearch = s.nextLine();
+        while(true) {
+            if (bookSearch.equalsIgnoreCase("title") || bookSearch.equalsIgnoreCase("author")){
+                break;
+            }
+            System.out.print("Enter either title or author: ");
+            bookSearch = s.nextLine();
+        }
+        return bookSearch;
     }
 }
