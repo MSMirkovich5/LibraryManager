@@ -30,6 +30,6 @@ public class Book {
         return String.format(status);
     }
     public void setStatus(String s) {
-        this.status = s;
+        status = s;
     }
 }

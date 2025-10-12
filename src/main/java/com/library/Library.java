@@ -47,7 +47,7 @@ public class Library {
                     return book;
                 }
                 else{
-                    System.out.println("Unfortunately, we do not have that book in our library.");
+                    System.out.println("Unfortunately, we do not have any of that author's books in our library.");
                 }
             }
         }
@@ -92,6 +92,9 @@ public class Library {
         }
     }
     public void printOutEnitreLibrary() {
+        if  (enitreLibrary.isEmpty()) {
+            System.out.println("There are currently no books in our library!");
+        }
         System.out.println("The library contains the following books: ");
         for (Book book : enitreLibrary) {
             System.out.println(book);
