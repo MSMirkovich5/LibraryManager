@@ -21,12 +21,12 @@ public class Main {
                 case "borrow":
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
-                    libra.borrowBook(libra.searchBook(chooseChoice, searchByChoice),borrowBookMain(input,"borrow"));
+                    libra.borrowBook(libra.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input,"borrow"));
                     break;
                 case "return":
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
-                    libra.returnBook(libra.searchBook(chooseChoice, searchByChoice), borrowBookMain(input,"return"));
+                    libra.returnBook(libra.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input,"return"));
                     break;
                 case "printout":
                     libra.printOutEnitreLibrary();
@@ -71,7 +71,7 @@ public class Main {
         System.out.print("Enter book "+authorOrTitle+": ");
         return input.nextLine();
     }
-    private static String borrowBookMain(Scanner input, String borrowReturn) {
+    private static String borrowOrReturnBook(Scanner input, String borrowReturn) {
         if (borrowReturn.equalsIgnoreCase("Borrow")) {
             System.out.print("Would you like to borrow the book? (yes/no) ");
         }
