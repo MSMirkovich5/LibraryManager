@@ -8,26 +8,13 @@ public class Library {
 
     ArrayList<Book> enitreLibrary = new ArrayList<Book>();
 
-    public void addBook(Scanner s) {
-        System.out.print("Enter book title: ");
-        String bookName = s.nextLine();
-        System.out.print("Enter book author: ");
-        String bookAuthor = s.nextLine();
-        System.out.print("Enter book ISBN: ");
-        String bookISBN = s.nextLine();
-        System.out.print("Enter the book's publication year: ");
-        String bookYear = s.nextLine();
-        String bookStatus="Available";
-        Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN, bookStatus);
-        enitreLibrary.add(addedBook);
-        System.out.println("Book added successfully!");
+    public void addBook(Book b) {
+        enitreLibrary.add(b);
     }
-    public Book searchBook(Scanner s) {
-        if (searchByAuthorOrTitle(s).equalsIgnoreCase("title")) {
-            System.out.print("Enter book title: ");
-            String bookTitle = s.nextLine();
+    public Book searchBook(String choiceTitleOrAuthor, String bookTitleOrAuthor) {
+        if (choiceTitleOrAuthor.equalsIgnoreCase("title")) {
             for (Book book : enitreLibrary) {
-                if (book.getTitle().equalsIgnoreCase(bookTitle)) {
+                if (book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
                     System.out.println("We have that book in our library!");
                     return book;
                 }
@@ -37,11 +24,9 @@ public class Library {
                 }
             }
         }
-        if (searchByAuthorOrTitle(s).equalsIgnoreCase("author")) {
-            System.out.print("Enter book author: ");
-            String bookAuthor = s.nextLine();
+        if (choiceTitleOrAuthor.equalsIgnoreCase("author")) {
             for (Book book : enitreLibrary) {
-                if (book.getAuthor().equalsIgnoreCase(bookAuthor)) {
+                if (book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
                     System.out.println("We have that book in our library!");
                     return book;
                 }
@@ -53,36 +38,34 @@ public class Library {
         }
         return null;
     }
-    public void borrowBook(Scanner s) {
-        Book findBook = searchBook(s);
-        if (findBook == null) {
-            System.out.println("Unfortunately, we don't have that book in our library!");
+    public void borrowBook(Book foundBook, String yesOrNo) {
+        if (foundBook == null) {
+            return;
         }
-        if (findBook.getStatus().equalsIgnoreCase("Borrowed")) {
+        if (foundBook.getStatus().equalsIgnoreCase("Borrowed")) {
             System.out.println("This book has already been borrowed!");
+            return;
         }
-        System.out.print("Would you like to borrow the book? (yes/no) ");
-        String bookBorrow = s.nextLine();
-        if (bookBorrow.equalsIgnoreCase("yes")) {
-            findBook.setStatus("Borrowed");
-            System.out.println("You borrowed "+findBook.getTitle()+" from the library!");
+        if (yesOrNo.equalsIgnoreCase("yes")) {
+            foundBook.setStatus("Borrowed");
+            System.out.println("You borrowed "+foundBook.getTitle()+" from the library!");
         }
         else {
             System.out.println("Book remains with us.");
         }
     }
-    public void returnBook(Scanner s) {
-        Book findBook = searchBook(s);
-        if (findBook == null) {
-            System.out.println("Unfortunately, we don't have that book in our library!");
-            // zbog nekog razloga proba nastavit s metodom umjesto da se vrati u Main i samo pita za continue.
+    public void returnBook(Book foundBook, String yesOrNo) {
+        if (foundBook == null) {
+            return;
         }
-        else if (findBook.getStatus().equalsIgnoreCase("Borrowed")) {
-            System.out.print(findBook.getTitle()+" has been borrowed! Would you like to return it? (yes/no) ");
-            String bookReturn = s.nextLine();
-            if (bookReturn.equalsIgnoreCase("yes")) {
-                findBook.setStatus("Available");
-                System.out.println("You returned "+findBook.getTitle()+" to the library!");
+        if (foundBook.getStatus().equalsIgnoreCase("Available")) {
+            System.out.println("This book is already in our library!");
+            return;
+        }
+        if (foundBook.getStatus().equalsIgnoreCase("Borrowed")) {
+            if (yesOrNo.equalsIgnoreCase("yes")) {
+                foundBook.setStatus("Available");
+                System.out.println("You returned "+foundBook.getTitle()+" to the library!");
             }
             else {
                 System.out.println("Book remains with you.");
@@ -96,22 +79,11 @@ public class Library {
         if  (enitreLibrary.isEmpty()) {
             System.out.println("There are currently no books in our library!");
         }
-        System.out.println("The library contains the following books: ");
-        for (Book book : enitreLibrary) {
-            System.out.println(book);
-        }
-    }
-    private static String searchByAuthorOrTitle(Scanner s) {
-        String options = "title author";
-        System.out.print("Would you like to search by title or by author? ");
-        String bookSearch = s.nextLine();
-        while(true) {
-            if (bookSearch.equalsIgnoreCase("title") || bookSearch.equalsIgnoreCase("author")){
-                break;
+        else{
+            System.out.println("The library contains the following books: ");
+            for (Book book : enitreLibrary) {
+                System.out.println(book);
             }
-            System.out.print("Enter either title or author: ");
-            bookSearch = s.nextLine();
         }
-        return bookSearch;
     }
 }

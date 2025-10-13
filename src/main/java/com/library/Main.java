@@ -11,16 +11,22 @@ public class Main {
             String optionSelect = getOptionFromUser(input);
             switch(optionSelect.toLowerCase()) {
                 case "add":
-                    libra.addBook(input);
+                    libra.addBook(addBookMain(input));
                     break;
                 case "search":
-                    libra.searchBook(input);
+                    String chooseChoice = chooseAuthorOrTitle(input);
+                    String searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
+                    libra.searchBook(chooseChoice,searchByChoice);
                     break;
                 case "borrow":
-                    libra.borrowBook(input);
+                    chooseChoice = chooseAuthorOrTitle(input);
+                    searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
+                    libra.borrowBook(libra.searchBook(chooseChoice, searchByChoice),borrowBookMain(input));
                     break;
                 case "return":
-                    libra.returnBook(input);
+                    chooseChoice = chooseAuthorOrTitle(input);
+                    searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
+                    libra.returnBook(libra.searchBook(chooseChoice, searchByChoice), returnBookMain(input));
                     break;
                 case "printout":
                     libra.printOutEnitreLibrary();
@@ -35,7 +41,42 @@ public class Main {
 
     private static String getOptionFromUser(Scanner input) {
         System.out.print("Choose an option (Add, Search, Borrow, Return, Printout): ");
-        String option = input.nextLine();
-        return option;
+        return input.nextLine();
+    }
+    private static Book addBookMain(Scanner input) {
+        System.out.print("Enter book title: ");
+        String bookName = input.nextLine();
+        System.out.print("Enter book author: ");
+        String bookAuthor = input.nextLine();
+        System.out.print("Enter book ISBN: ");
+        String bookISBN = input.nextLine();
+        System.out.print("Enter the book's publication year: ");
+        String bookYear = input.nextLine();
+        String bookStatus="Available";
+        Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN, bookStatus);
+        System.out.println("Book added successfully!");
+        return addedBook;
+    }
+    private static String chooseAuthorOrTitle(Scanner input) {
+        while (true) {
+            System.out.print("Would you like to search by title or by author? ");
+            String bookSearch = input.nextLine();
+            if (bookSearch.equalsIgnoreCase("title") || bookSearch.equalsIgnoreCase("author")) {
+                return bookSearch;
+            }
+            System.out.print("Enter either title or author: ");
+        }
+    }
+    private static String searchBookTitleOrAuthor(Scanner input, String authorOrTitle) {
+        System.out.print("Enter book "+authorOrTitle+": ");
+        return input.nextLine();
+    }
+    private static String borrowBookMain(Scanner input) {
+        System.out.print("Would you like to borrow the book? (yes/no) ");
+        return input.nextLine();
+    }
+    private static String returnBookMain(Scanner input) {
+        System.out.print("Would you like to return the book? (yes/no) ");
+        return input.nextLine();
     }
 }
