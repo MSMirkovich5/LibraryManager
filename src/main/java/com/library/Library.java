@@ -18,11 +18,9 @@ public class Library {
                     System.out.println("We have that book in our library!");
                     return book;
                 }
-                else {
-                    System.out.println("Unfortunately, we do not have that book in our library.");
-                    return null;
-                }
             }
+            System.out.println("Unfortunately, we do not have that book in our library.");
+            return null;
         }
         if (choiceTitleOrAuthor.equalsIgnoreCase("author")) {
             for (Book book : enitreLibrary) {
@@ -30,11 +28,9 @@ public class Library {
                     System.out.println("We have that book in our library!");
                     return book;
                 }
-                else{
-                    System.out.println("Unfortunately, we do not have any of that author's books in our library.");
-                    return null;
-                }
             }
+            System.out.println("Unfortunately, we do not have any of that author's books in our library.");
+            return null;
         }
         return null;
     }

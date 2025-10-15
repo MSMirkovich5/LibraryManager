@@ -10,24 +10,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryTest {
 
-    /*@Test
+    @Test
     void testSearchBook(){
-        ArrayList<Book> testLibrary = new ArrayList<>();
         Library library = new Library();
-        Scanner sc = new Scanner("title\nMoby Dick");
         Book book = new Book("Moby Dick","Herman Melville","1851","123456","Available");
-        testLibrary.add(book);
-        assertEquals(book, library.searchBook(sc));
+        library.addBook(book);
+        assertEquals(book, library.searchBook("title","Moby Dick"));
     }
     @Test
-    void testBorrowBook(){
-        ArrayList<Book> testLibrary = new ArrayList<>();
+    void testSearchBookNotInLibrary() {
         Library library = new Library();
-        Scanner sc = new Scanner("yes");
         Book book = new Book("Moby Dick","Herman Melville","1851","123456","Available");
-        testLibrary.add(book);
-        library.borrowBook(sc);
-        assertEquals("Borrowed", book.getStatus());
-    }*/
-
+        library.addBook(book);
+        assertEquals(null, library.searchBook("title","Jony"));
+    }
 }

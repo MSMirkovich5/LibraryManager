@@ -40,8 +40,14 @@ public class Main {
 
 
     private static String getOptionFromUser(Scanner input) {
+        String options = "Add Search Borrow Return Printout add search borrow return printout";
         System.out.print("Choose an option (Add, Search, Borrow, Return, Printout): ");
-        return input.nextLine();
+        String option = input.nextLine();
+        while (!options.contains(option)) {
+            System.out.print("Invalid option! Please choose one of the following (Add, Search, Borrow, Return, Printout): ");
+            option=input.nextLine();
+        }
+        return option;
     }
     private static Book addBookMain(Scanner input) {
         System.out.print("Enter book title: ");

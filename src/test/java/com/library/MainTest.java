@@ -20,9 +20,21 @@ class MainTest {
         String option = copyGetOptionFromUser(sc);
         assertEquals("search", option);
     }
+    @Test
+    void testChooseAuthorOrTitle(){
+        Scanner sc = new Scanner("title");
+        String option = copyChooseAuthorOrTitle(sc);
+        assertEquals("title", option);
+    }
+    @Test
+    void testChooseAuthorOrTitleInvalidThenValidInput(){
+        Scanner sc = new Scanner("pasta \ntitle");
+        String option = copyChooseAuthorOrTitle(sc);
+        assertEquals("title", option);
+    }
 
     private static String copyGetOptionFromUser(Scanner input) {
-        String options = "add search borrow return printout";
+        String options = "Add Search Borrow Return Printout add search borrow return printout";
         System.out.print("Choose an option (Add, Search, Borrow, Return, Printout): ");
         String option = input.nextLine();
         while(!options.contains(option)) {
@@ -30,5 +42,15 @@ class MainTest {
             option = input.nextLine();
         }
         return option;
+    }
+    private static String copyChooseAuthorOrTitle(Scanner input) {
+        while (true) {
+            System.out.print("Would you like to search by title or by author? ");
+            String bookSearch = input.nextLine();
+            if (bookSearch.equalsIgnoreCase("title") || bookSearch.equalsIgnoreCase("author")) {
+                return bookSearch;
+            }
+            System.out.print("Enter either title or author: ");
+        }
     }
 }
