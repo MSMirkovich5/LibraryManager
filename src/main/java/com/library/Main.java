@@ -3,38 +3,41 @@ package com.library;
 import java.util.Scanner;
 
 public class Main {
+    public static final String AUTHOR = "author";
+    public static final String TITLE = "title";
+    public static final String BORROW = "borrow";
+    public static final String RETURN = "return";
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Library libra = new Library();
+        Library library = new Library();
 
-        while (true) {
+        do {
             String optionSelect = getOptionFromUser(input);
-            switch(optionSelect.toLowerCase()) {
+            switch (optionSelect.toLowerCase()) {
                 case "add":
-                    libra.addBook(addBookMain(input));
+                    library.addBook(addBookMain(input));
                     break;
                 case "search":
                     String chooseChoice = chooseAuthorOrTitle(input);
                     String searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
-                    libra.searchBook(chooseChoice,searchByChoice);
+                    library.searchBook(chooseChoice, searchByChoice);
                     break;
                 case "borrow":
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
-                    libra.borrowBook(libra.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input,"borrow"));
+                    library.borrowBook(library.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input, BORROW));
                     break;
                 case "return":
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
-                    libra.returnBook(libra.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input,"return"));
+                    library.returnBook(library.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input, RETURN));
                     break;
                 case "printout":
-                    libra.printOutEnitreLibrary();
+                    library.printOutEnitreLibrary();
                     break;
             }
             System.out.print("Would you like to continue? (yes/no) ");
-            if (input.nextLine().equalsIgnoreCase("no")) break;
-        }
+        } while (!input.nextLine().equalsIgnoreCase("no"));
     }
 
 
@@ -67,7 +70,7 @@ public class Main {
         while (true) {
             System.out.print("Would you like to search by title or by author? ");
             String bookSearch = input.nextLine();
-            if (bookSearch.equalsIgnoreCase("title") || bookSearch.equalsIgnoreCase("author")) {
+            if (bookSearch.equalsIgnoreCase(TITLE) || bookSearch.equalsIgnoreCase(AUTHOR)) {
                 return bookSearch;
             }
             System.out.print("Enter either title or author: ");
@@ -78,7 +81,7 @@ public class Main {
         return input.nextLine();
     }
     private static String borrowOrReturnBook(Scanner input, String borrowReturn) {
-        if (borrowReturn.equalsIgnoreCase("Borrow")) {
+        if (borrowReturn.equalsIgnoreCase(BORROW)) {
             System.out.print("Would you like to borrow the book? (yes/no) ");
         }
         else {

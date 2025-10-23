@@ -1,13 +1,20 @@
 package com.library;
 
-import java.util.Scanner;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
 public class Book {
 
+    @Getter
     private String title;
+    @Getter
     private String author;
     private String yearPublished;
     private String uniqueISBN;
+    @Setter
+    @Getter
     private String status;
     public Book(String title, String author, String yearPublished, String uniqueISBN, String status) {
         this.title = title;
@@ -16,20 +23,7 @@ public class Book {
         this.uniqueISBN = uniqueISBN;
         this.status = status;
     }
-    @Override
     public String toString() {
         return String.format("Title: " +title+ " | Author: " +author+ " | Year published: " +yearPublished+ " | ISBN: "+uniqueISBN + "| Availabilty: "+status);
-    }
-    public String getTitle() {
-        return String.format(title);
-    }
-    public String getAuthor() {
-        return String.format(author);
-    }
-    public String getStatus() {
-        return String.format(status);
-    }
-    public void setStatus(String s) {
-        status = s;
     }
 }

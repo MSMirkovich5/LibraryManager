@@ -1,67 +1,72 @@
 package com.library;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+
+import static com.library.Main.AUTHOR;
+import static com.library.Main.TITLE;
 
 public class Library {
 
-    ArrayList<Book> enitreLibrary = new ArrayList<Book>();
+    Set<Book> enitreLibrary = new HashSet<>();
 
-    public void addBook(Book b) {
-        enitreLibrary.add(b);
+    public void addBook(Book book) {
+        enitreLibrary.add(book);
     }
-    public Book searchBook(String choiceTitleOrAuthor, String bookTitleOrAuthor) {
-        if (choiceTitleOrAuthor.equalsIgnoreCase("title")) {
+    public Optional<Book> searchBook(String choiceTitleOrAuthor, String bookTitleOrAuthor) {
+        if (choiceTitleOrAuthor.equalsIgnoreCase(TITLE)) {
             for (Book book : enitreLibrary) {
                 if (book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
                     System.out.println("We have that book in our library!");
-                    return book;
+                    return Optional.of(book);
                 }
             }
             System.out.println("Unfortunately, we do not have that book in our library.");
-            return null;
+            return Optional.empty();
         }
-        if (choiceTitleOrAuthor.equalsIgnoreCase("author")) {
+        if (choiceTitleOrAuthor.equalsIgnoreCase(AUTHOR)) {
             for (Book book : enitreLibrary) {
                 if (book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
                     System.out.println("We have that book in our library!");
-                    return book;
+                    return Optional.of(book);
                 }
             }
             System.out.println("Unfortunately, we do not have any of that author's books in our library.");
-            return null;
+            return Optional.empty();
         }
-        return null;
+        return Optional.empty();
     }
-    public void borrowBook(Book foundBook, String yesOrNo) {
-        if (foundBook == null) {
+    public void borrowBook(Optional<Book> foundBook, String yesOrNo) {
+        if (foundBook.isEmpty()) {
+            System.out.println("Book not found!");
             return;
         }
-        if (foundBook.getStatus().equalsIgnoreCase("Borrowed")) {
+        Book book = foundBook.get();
+        if (book.getStatus().equalsIgnoreCase("Borrowed")) {
             System.out.println("This book has already been borrowed!");
             return;
         }
         if (yesOrNo.equalsIgnoreCase("yes")) {
-            foundBook.setStatus("Borrowed");
-            System.out.println("You borrowed "+foundBook.getTitle()+" from the library!");
+            book.setStatus("Borrowed");
+            System.out.println("You borrowed "+book.getTitle()+" from the library!");
         }
         else {
             System.out.println("Book remains with us.");
         }
     }
-    public void returnBook(Book foundBook, String yesOrNo) {
-        if (foundBook == null) {
+    public void returnBook(Optional<Book> foundBook, String yesOrNo) {
+        if (foundBook.isEmpty()) {
+            System.out.println("Book not found!");
             return;
         }
-        if (foundBook.getStatus().equalsIgnoreCase("Available")) {
+        Book book = foundBook.get();
+        if (book.getStatus().equalsIgnoreCase("Available")) {
             System.out.println("This book is already in our library!");
             return;
         }
-        if (foundBook.getStatus().equalsIgnoreCase("Borrowed")) {
+        if (book.getStatus().equalsIgnoreCase("Borrowed")) {
             if (yesOrNo.equalsIgnoreCase("yes")) {
-                foundBook.setStatus("Available");
-                System.out.println("You returned "+foundBook.getTitle()+" to the library!");
+                book.setStatus("Available");
+                System.out.println("You returned "+book.getTitle()+" to the library!");
             }
             else {
                 System.out.println("Book remains with you.");
