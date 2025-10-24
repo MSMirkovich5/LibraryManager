@@ -2,9 +2,6 @@ package com.library;
 
 import java.util.*;
 
-import static com.library.Main.AUTHOR;
-import static com.library.Main.TITLE;
-
 public class Library {
 
     Set<Book> entireLibrary = new HashSet<>();
@@ -14,7 +11,7 @@ public class Library {
         System.out.println("Book added successfully!");
         entireLibrary.add(book);
     }
-    public Optional<Book> searchBook(String choiceTitleOrAuthor, String bookTitleOrAuthor) {
+    public Optional<Book> searchBook(Main.Constant choiceTitleOrAuthor, String bookTitleOrAuthor) {
         if (searchLibraryUsingTitleOrAuthor(choiceTitleOrAuthor, bookTitleOrAuthor)){
             System.out.println("We have that book in our library!");
             return Optional.of(entireLibrary.iterator().next());
@@ -24,12 +21,12 @@ public class Library {
             return Optional.empty();
         }
     }
-    public void bookBorrowOrReturn(Optional<Book> foundBook, String yesOrNo, String borrowReturn) {
+    public void bookBorrowOrReturn(Optional<Book> foundBook, String yesOrNo, Main.Constant borrowReturn) {
         if (foundBook.isEmpty()) {
             return;
         }
         Book book = foundBook.get();
-        if (borrowReturn.equals("borrow")) {
+        if (borrowReturn.equals(Main.Constant.BORROW)) {
             if (book.getStatus().equalsIgnoreCase("Borrowed")) {
                 System.out.println("This book has already been borrowed!");
                 return;
@@ -42,7 +39,7 @@ public class Library {
                 System.out.println("Book remains with us.");
             }
         }
-        if (borrowReturn.equals("return")) {
+        if (borrowReturn.equals(Main.Constant.RETURN)) {
             if (book.getStatus().equalsIgnoreCase("Available")) {
                 System.out.println("This book is already in our library!");
                 return;
@@ -79,8 +76,8 @@ public class Library {
         }
         return false;
     }
-    private boolean searchLibraryUsingTitleOrAuthor(String titleOrAuthor, String bookTitleOrAuthor) {
-        if (titleOrAuthor.equalsIgnoreCase(TITLE)) {
+    private boolean searchLibraryUsingTitleOrAuthor(Main.Constant titleOrAuthor, String bookTitleOrAuthor) {
+        if (titleOrAuthor.equals(Main.Constant.TITLE)) {
             for (Book book : entireLibrary) {
                 if (book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
                     return true;
@@ -88,7 +85,7 @@ public class Library {
             }
             return false;
         }
-        else if (titleOrAuthor.equalsIgnoreCase(AUTHOR)) {
+        else if (titleOrAuthor.equals(Main.Constant.AUTHOR)) {
             for (Book book : entireLibrary) {
                 if (book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
                     return true;

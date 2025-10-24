@@ -4,10 +4,9 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
-    public static final String AUTHOR = "author";
-    public static final String TITLE = "title";
-    public static final String BORROW = "borrow";
-    public static final String RETURN = "return";
+    enum Constant {
+        AUTHOR, TITLE, BORROW, RETURN
+    }
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Library library = new Library();
@@ -19,7 +18,7 @@ public class Main {
                     library.addBook(addBookMain(input));
                     break;
                 case "search":
-                    String chooseChoice = chooseAuthorOrTitle(input);
+                    Constant chooseChoice = chooseAuthorOrTitle(input);
                     String searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
                     library.searchBook(chooseChoice, searchByChoice);
                     break;
@@ -27,13 +26,13 @@ public class Main {
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
                     Optional<Book> foundBook= library.searchBook(chooseChoice, searchByChoice);
-                    library.bookBorrowOrReturn(foundBook, borrowOrReturnBook(foundBook, input, BORROW), BORROW);
+                    library.bookBorrowOrReturn(foundBook, borrowOrReturnBook(foundBook, input, Constant.BORROW), Constant.BORROW);
                     break;
                 case "return":
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
                     foundBook= library.searchBook(chooseChoice, searchByChoice);
-                    library.bookBorrowOrReturn(foundBook, borrowOrReturnBook(foundBook, input, RETURN), RETURN);
+                    library.bookBorrowOrReturn(foundBook, borrowOrReturnBook(foundBook, input, Constant.RETURN), Constant.RETURN);
                     break;
                 case "printout":
                     library.printOutEnitreLibrary();
@@ -68,25 +67,28 @@ public class Main {
         Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN, bookStatus);
         return addedBook;
     }
-    private static String chooseAuthorOrTitle(Scanner input) {
+    private static Constant chooseAuthorOrTitle(Scanner input) {
         while (true) {
             System.out.print("Would you like to search by title or by author? ");
             String bookSearch = input.nextLine();
-            if (bookSearch.equalsIgnoreCase(TITLE) || bookSearch.equalsIgnoreCase(AUTHOR)) {
-                return bookSearch;
+            if (bookSearch.equalsIgnoreCase("title")) {
+                return Constant.TITLE;
+            }
+            else if (bookSearch.equalsIgnoreCase("author")) {
+                return Constant.AUTHOR;
             }
             System.out.print("Enter either title or author: ");
         }
     }
-    private static String searchBookTitleOrAuthor(Scanner input, String authorOrTitle) {
+    private static String searchBookTitleOrAuthor(Scanner input, Constant authorOrTitle) {
         System.out.print("Enter book "+authorOrTitle+": ");
         return input.nextLine();
     }
-    private static String borrowOrReturnBook(Optional<Book> book,Scanner input, String borrowReturn) {
+    private static String borrowOrReturnBook(Optional<Book> book,Scanner input, Constant borrowReturn) {
         if (book.isEmpty()) {
             return null;
         }
-        if (borrowReturn.equalsIgnoreCase(BORROW)) {
+        if (borrowReturn.equals(Constant.BORROW)) {
             System.out.print("Would you like to borrow the book? (yes/no) ");
         }
         else {
