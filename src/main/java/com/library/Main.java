@@ -1,5 +1,6 @@
 package com.library;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -25,12 +26,14 @@ public class Main {
                 case "borrow":
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
-                    library.borrowBook(library.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input, BORROW));
+                    Optional<Book> foundBook= library.searchBook(chooseChoice, searchByChoice);
+                    library.bookBorrowOrReturn(foundBook, borrowOrReturnBook(foundBook, input, BORROW), BORROW);
                     break;
                 case "return":
                     chooseChoice = chooseAuthorOrTitle(input);
                     searchByChoice = searchBookTitleOrAuthor(input, chooseChoice);
-                    library.returnBook(library.searchBook(chooseChoice, searchByChoice), borrowOrReturnBook(input, RETURN));
+                    foundBook= library.searchBook(chooseChoice, searchByChoice);
+                    library.bookBorrowOrReturn(foundBook, borrowOrReturnBook(foundBook, input, RETURN), RETURN);
                     break;
                 case "printout":
                     library.printOutEnitreLibrary();
@@ -63,7 +66,6 @@ public class Main {
         String bookYear = input.nextLine();
         String bookStatus="Available";
         Book addedBook = new Book(bookName, bookAuthor, bookYear, bookISBN, bookStatus);
-        System.out.println("Book added successfully!");
         return addedBook;
     }
     private static String chooseAuthorOrTitle(Scanner input) {
@@ -80,7 +82,10 @@ public class Main {
         System.out.print("Enter book "+authorOrTitle+": ");
         return input.nextLine();
     }
-    private static String borrowOrReturnBook(Scanner input, String borrowReturn) {
+    private static String borrowOrReturnBook(Optional<Book> book,Scanner input, String borrowReturn) {
+        if (book.isEmpty()) {
+            return null;
+        }
         if (borrowReturn.equalsIgnoreCase(BORROW)) {
             System.out.print("Would you like to borrow the book? (yes/no) ");
         }
