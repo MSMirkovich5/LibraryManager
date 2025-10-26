@@ -14,14 +14,14 @@ class LibraryTest {
         Library library = new Library();
         Book book = new Book("Moby Dick","Herman Melville","1851","123456","Available");
         library.addBook(book);
-        assertEquals(Optional.of(book), library.searchBook("title","Moby Dick"));
+        assertEquals(Optional.of(book), library.searchBook(Main.Constant.TITLE,"Moby Dick"));
     }
     @Test
     void testSearchBookNotInLibrary() {
         Library library = new Library();
         Book book = new Book("Moby Dick","Herman Melville","1851","123456","Available");
         library.addBook(book);
-        assertEquals(Optional.empty(), library.searchBook("title","Jony"));
+        assertEquals(Optional.empty(), library.searchBook(Main.Constant.TITLE,"Jony"));
     }
     @Test
     void testAddingDuplicateBook() {
