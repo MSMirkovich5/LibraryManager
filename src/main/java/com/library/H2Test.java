@@ -1,14 +1,12 @@
 package com.library;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+
 import org.h2.tools.Server;
 
 
 public class H2Test {
-    public static void main(String[] args) {
-        String url = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1"; // DB_CLOSE_DELAY=-1 čuva bazu dok aplikacija radi
+    public static void main(String[] args) throws SQLException {
+        String url = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
         String username = "sa";
         String password = "";
 
@@ -24,8 +22,6 @@ public class H2Test {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082").start();
-        System.out.println("H2 konzola dostupna na: http://localhost:8082");
     }
 }
 
