@@ -6,7 +6,7 @@ import org.h2.tools.Server;
 
 public class H2Test {
     public static void main(String[] args) throws SQLException {
-        String url = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
+        String url = "jdbc:h2:file:./data/librarydb";
         String username = "sa";
         String password = "";
 
