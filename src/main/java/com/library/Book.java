@@ -11,7 +11,9 @@ public class Book {
     private String title;
     @Getter
     private String author;
+    @Getter
     private String yearPublished;
+    @Getter
     private String uniqueISBN;
     @Setter
     @Getter
