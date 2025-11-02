@@ -5,6 +5,9 @@ This simple program allows the user to manage a personal library.
 User can add, search, borrow and return books, as well as view
 the entire collection.
 
+**Java** version 18 or higher and **H2** version 2.2 or higher 
+is needed to run this program.
+
 - **Adding Books**: User provides the book's title, author, ISBN 
 and the publishing year to add it to the library, the program then
 automatically assigns the book with a status *Available*
@@ -35,3 +38,10 @@ The library contains the following books:
 Title: The Best Book | Author: Best Author | Year published: 1999 | ISBN: 202202| Availabilty: Available
 Would you like to continue? (yes/no) no
 ```
+
+To run the program, first make sure Java 18 or higher and H2 2.2 or
+higher is installed.
+Then, run the Main class and follow the directions on the terminal.
+Once you're done, you can run the H2Console class and visit the link
+provided in the terminal to check out the Library Manager database.
+Remember to stop the program when you close the database.
