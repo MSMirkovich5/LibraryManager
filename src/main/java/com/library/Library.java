@@ -16,16 +16,18 @@ public class Library {
     public void addBook(Book book) {
         if (entireLibrary.contains(book)) {
             System.out.println("Book already exists");
-            return;
         }
-        repository.saveToDatabase(book);
-        entireLibrary.add(book);
-        System.out.println("Book added successfully!");
+        else {
+            repository.saveToDatabase(book);
+            entireLibrary.add(book);
+            System.out.println("Book added successfully!");
+        }
     }
     public Optional<Book> searchBook(Main.Constant choiceTitleOrAuthor, String bookTitleOrAuthor) {
-        if (searchLibraryUsingTitleOrAuthor(choiceTitleOrAuthor, bookTitleOrAuthor)){
-            System.out.println("We have that book in our library!");
-            return Optional.of(entireLibrary.iterator().next());
+        Optional<Book> foundBook = searchLibraryUsingTitleOrAuthor(choiceTitleOrAuthor, bookTitleOrAuthor);
+        if (foundBook.isPresent()) {
+            System.out.println("We have " +foundBook.get().getTitle()+ " in our library!");
+            return foundBook;
         }
         else{
             System.out.println("Book not found!");
@@ -80,23 +82,15 @@ public class Library {
 
 
 
-    private boolean searchLibraryUsingTitleOrAuthor(Main.Constant titleOrAuthor, String bookTitleOrAuthor) {
-        if (titleOrAuthor.equals(Main.Constant.TITLE)) {
-            for (Book book : entireLibrary) {
-                if (book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
-                    return true;
-                }
+    private Optional<Book> searchLibraryUsingTitleOrAuthor(Main.Constant titleOrAuthor, String bookTitleOrAuthor) {
+        for (Book book : entireLibrary) {
+            if (titleOrAuthor.equals(Main.Constant.TITLE) && book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
+                return Optional.of(book);
             }
-            return false;
-        }
-        else if (titleOrAuthor.equals(Main.Constant.AUTHOR)) {
-            for (Book book : entireLibrary) {
-                if (book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
-                    return true;
-                }
+            if (titleOrAuthor.equals(Main.Constant.AUTHOR) &&  book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
+                return Optional.of(book);
             }
-            return false;
         }
-        return false;
+        return Optional.empty();
     }
 }

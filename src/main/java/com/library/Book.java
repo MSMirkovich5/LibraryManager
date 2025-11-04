@@ -2,6 +2,8 @@ package com.library;
 
 import lombok.*;
 
+import java.util.Objects;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -18,6 +20,7 @@ public class Book {
     @Setter
     @Getter
     private String status;
+
     @Override
     public boolean equals(Object obj) {
         if (this.getClass() == obj.getClass()) {
@@ -27,5 +30,10 @@ public class Book {
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author);
     }
 }
