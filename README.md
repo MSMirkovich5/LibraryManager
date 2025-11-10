@@ -37,11 +37,20 @@ Choose an option (Add, Search, Borrow, Return, Printout): printout
 The library contains the following books:
 Title: The Best Book | Author: Best Author | Year published: 1999 | ISBN: 202202| Availabilty: Available
 Would you like to continue? (yes/no) no
+The program has been terminated.
 ```
 
 To run the program, first make sure Java 18 or higher and H2 2.2 or
 higher is installed.
-Then, run the Main class and follow the directions on the terminal.
-Once you're done, you can run the H2Console class and visit the link
-provided in the terminal to check out the Library Manager database.
-Remember to stop the program when you close the database.
+Then, open the Command prompt window and navigate to the folder that
+contains the "Target" folder using the **cd** command.
+Example in Command Prompt:
+
+```cd C:\Users\%NAME%\IdeaProjects\LibraryManager```
+
+Now you have to run the .jar file inside the Target folder:
+
+```java -jar target/LibraryManager.jar```
+
+This will start the program. Now simply follow the instructions 
+that the program provides.

@@ -37,6 +37,7 @@ public class Main {
             }
             System.out.print("Would you like to continue? (yes/no) ");
         } while (!input.nextLine().equalsIgnoreCase("no"));
+        System.out.println("The program has been terminated.");
     }
 
 
