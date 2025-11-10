@@ -7,6 +7,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@EqualsAndHashCode(of = {"title", "author"})
 public class Book {
 
     @Getter
@@ -20,20 +21,4 @@ public class Book {
     @Setter
     @Getter
     private String status;
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this.getClass() == obj.getClass()) {
-            Book book = (Book) obj;
-            if (book.getTitle().equals(this.title) && book.getAuthor().equals(this.author)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, author);
-    }
 }

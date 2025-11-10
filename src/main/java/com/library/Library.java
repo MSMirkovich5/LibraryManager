@@ -5,25 +5,27 @@ import java.util.*;
 
 public class Library {
 
-    Set<Book> entireLibrary = new HashSet<>();
-    LibraryRepository repository;
+    private Set<Book> entireLibrary = new HashSet<>();
+    private LibraryRepository repository;
 
     public Library() {
         repository = new LibraryRepository();
         entireLibrary.addAll(repository.addBooksFromDatabase());
     }
 
-    public void addBook(Book book) {
+    public String addBook(Book book) {
         if (entireLibrary.contains(book)) {
             System.out.println("Book already exists");
+            return "Book already exists";
         }
         else {
             repository.saveToDatabase(book);
             entireLibrary.add(book);
             System.out.println("Book added successfully!");
+            return "Book added successfully!";
         }
     }
-    public Optional<Book> searchBook(Main.Constant choiceTitleOrAuthor, String bookTitleOrAuthor) {
+    public Optional<Book> searchBook(BookConstants.Constant choiceTitleOrAuthor, String bookTitleOrAuthor) {
         Optional<Book> foundBook = searchLibraryUsingTitleOrAuthor(choiceTitleOrAuthor, bookTitleOrAuthor);
         if (foundBook.isPresent()) {
             System.out.println("We have " +foundBook.get().getTitle()+ " in our library!");
@@ -34,12 +36,12 @@ public class Library {
             return Optional.empty();
         }
     }
-    public void bookBorrowOrReturn(Optional<Book> foundBook, String yesOrNo, Main.Constant borrowReturn) {
+    public void bookBorrowOrReturn(Optional<Book> foundBook, String yesOrNo, BookConstants.Constant borrowReturn) {
         if (foundBook.isEmpty()) {
             return;
         }
         Book book = foundBook.get();
-        if (borrowReturn.equals(Main.Constant.BORROW)) {
+        if (borrowReturn.equals(BookConstants.Constant.BORROW)) {
             if (book.getStatus().equalsIgnoreCase("Borrowed")) {
                 System.out.println("This book has already been borrowed!");
                 return;
@@ -53,7 +55,7 @@ public class Library {
                 System.out.println("Book remains with us.");
             }
         }
-        if (borrowReturn.equals(Main.Constant.RETURN)) {
+        if (borrowReturn.equals(BookConstants.Constant.RETURN)) {
             if (book.getStatus().equalsIgnoreCase("Available")) {
                 System.out.println("This book is already in our library!");
                 return;
@@ -82,12 +84,12 @@ public class Library {
 
 
 
-    private Optional<Book> searchLibraryUsingTitleOrAuthor(Main.Constant titleOrAuthor, String bookTitleOrAuthor) {
+    private Optional<Book> searchLibraryUsingTitleOrAuthor(BookConstants.Constant titleOrAuthor, String bookTitleOrAuthor) {
         for (Book book : entireLibrary) {
-            if (titleOrAuthor.equals(Main.Constant.TITLE) && book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
+            if (titleOrAuthor.equals(BookConstants.Constant.TITLE) && book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
                 return Optional.of(book);
             }
-            if (titleOrAuthor.equals(Main.Constant.AUTHOR) &&  book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
+            if (titleOrAuthor.equals(BookConstants.Constant.AUTHOR) &&  book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
                 return Optional.of(book);
             }
         }
