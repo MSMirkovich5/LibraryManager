@@ -1,7 +1,5 @@
 package com.library;
 
-public class BookConstants {
-    enum Constant {
-        AUTHOR, TITLE, BORROW, RETURN
-    }
+public enum BookConstants {
+            AUTHOR, TITLE, BORROW, RETURN
 }

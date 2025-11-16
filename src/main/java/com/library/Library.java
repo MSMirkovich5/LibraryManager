@@ -25,7 +25,7 @@ public class Library {
             return "Book added successfully!";
         }
     }
-    public Optional<Book> searchBook(BookConstants.Constant choiceTitleOrAuthor, String bookTitleOrAuthor) {
+    public Optional<Book> searchBook(BookConstants choiceTitleOrAuthor, String bookTitleOrAuthor) {
         Optional<Book> foundBook = searchLibraryUsingTitleOrAuthor(choiceTitleOrAuthor, bookTitleOrAuthor);
         if (foundBook.isPresent()) {
             System.out.println("We have " +foundBook.get().getTitle()+ " in our library!");
@@ -36,12 +36,12 @@ public class Library {
             return Optional.empty();
         }
     }
-    public void bookBorrowOrReturn(Optional<Book> foundBook, String yesOrNo, BookConstants.Constant borrowReturn) {
+    public void bookBorrowOrReturn(Optional<Book> foundBook, String yesOrNo, BookConstants borrowReturn) {
         if (foundBook.isEmpty()) {
             return;
         }
         Book book = foundBook.get();
-        if (borrowReturn.equals(BookConstants.Constant.BORROW)) {
+        if (borrowReturn.equals(BookConstants.BORROW)) {
             if (book.getStatus().equalsIgnoreCase("Borrowed")) {
                 System.out.println("This book has already been borrowed!");
                 return;
@@ -55,7 +55,7 @@ public class Library {
                 System.out.println("Book remains with us.");
             }
         }
-        if (borrowReturn.equals(BookConstants.Constant.RETURN)) {
+        if (borrowReturn.equals(BookConstants.RETURN)) {
             if (book.getStatus().equalsIgnoreCase("Available")) {
                 System.out.println("This book is already in our library!");
                 return;
@@ -84,12 +84,12 @@ public class Library {
 
 
 
-    private Optional<Book> searchLibraryUsingTitleOrAuthor(BookConstants.Constant titleOrAuthor, String bookTitleOrAuthor) {
+    private Optional<Book> searchLibraryUsingTitleOrAuthor(BookConstants titleOrAuthor, String bookTitleOrAuthor) {
         for (Book book : entireLibrary) {
-            if (titleOrAuthor.equals(BookConstants.Constant.TITLE) && book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
+            if (titleOrAuthor.equals(BookConstants.TITLE) && book.getTitle().equalsIgnoreCase(bookTitleOrAuthor)) {
                 return Optional.of(book);
             }
-            if (titleOrAuthor.equals(BookConstants.Constant.AUTHOR) &&  book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
+            if (titleOrAuthor.equals(BookConstants.AUTHOR) &&  book.getAuthor().equalsIgnoreCase(bookTitleOrAuthor)) {
                 return Optional.of(book);
             }
         }
