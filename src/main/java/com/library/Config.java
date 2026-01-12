@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.library.repository")
+@EnableJpaRepositories(basePackages = "com.library")
 @ComponentScan(basePackages = "com.library")
 public class Config {
     @Bean
